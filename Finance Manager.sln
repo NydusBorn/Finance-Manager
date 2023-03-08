@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finance Manager", "Finance Manager\Finance Manager.csproj", "{78DA1AD3-FD0F-4A95-9C95-7286B4EDABF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connector", "Connector\Connector.csproj", "{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface\Interface.csproj", "{9B256B13-463B-4A4D-8898-EF0811989DC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{78DA1AD3-FD0F-4A95-9C95-7286B4EDABF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78DA1AD3-FD0F-4A95-9C95-7286B4EDABF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78DA1AD3-FD0F-4A95-9C95-7286B4EDABF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B256B13-463B-4A4D-8898-EF0811989DC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B256B13-463B-4A4D-8898-EF0811989DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B256B13-463B-4A4D-8898-EF0811989DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B256B13-463B-4A4D-8898-EF0811989DC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
