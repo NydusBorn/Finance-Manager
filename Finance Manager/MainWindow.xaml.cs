@@ -31,12 +31,22 @@ namespace Finance_Manager
             if (!IsInitialized) return;
             Tc_Tabs.SelectedIndex = 0;
             Tg_Transaction_Sel.IsChecked = false;
+            Tg_Reports_Sel.IsChecked = false;
         }
         private void Tab_Transactions_Select(object sender, RoutedEventArgs e)
         {
             if (!IsInitialized) return;
             Tc_Tabs.SelectedIndex = 1;
             Tg_Users_Sel.IsChecked = false;
+            Tg_Reports_Sel.IsChecked = false;
+        }
+
+        private void Tab_Reports_Select(object sender, RoutedEventArgs e)
+        {
+            if (!IsInitialized) return;
+            Tc_Tabs.SelectedIndex = 2;
+            Tg_Users_Sel.IsChecked = false;
+            Tg_Transaction_Sel.IsChecked = false;
         }
     }
 }
