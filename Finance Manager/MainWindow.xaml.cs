@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Interface;
 using Wpf.Ui.Controls;
 
 namespace Finance_Manager
@@ -21,8 +22,10 @@ namespace Finance_Manager
     /// </summary>
     public partial class MainWindow : UiWindow
     {
+        private Controller _controller;
         public MainWindow()
         {
+            _controller = new Controller();
             InitializeComponent();
         }
 
