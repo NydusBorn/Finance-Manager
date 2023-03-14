@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +52,12 @@ namespace Finance_Manager
             Tc_Tabs.SelectedIndex = 2;
             Tg_Users_Sel.IsChecked = false;
             Tg_Transaction_Sel.IsChecked = false;
+        }
+
+        private void MainWindow_OnClosing(object? sender, CancelEventArgs e)
+        {
+            _controller.Cause_Close();
+            Process.GetCurrentProcess().Kill();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Microsoft.Data.Sqlite;
+using SQLitePCL;
 
 namespace Connection_Manager;
 
@@ -11,7 +12,7 @@ public class Connector
     private SqliteConnection _connection;
     
     public Connector()
-    {
+    { 
         _connection = new SqliteConnection("Data Source=Data.db");
         _connection.Open();
     }
@@ -22,11 +23,13 @@ public class Connector
     public void Create_Database()
     {
         SqliteCommand creator = new SqliteCommand();
+        _connection.Close();
+        _connection.Dispose();
+        _connection = new("Data Source=Data.db");
+        SqliteConnection.ClearAllPools();
+        File.Delete("Data.db");
+        _connection.Open();
         creator.Connection = _connection;
-        creator.CommandText = "PRAGMA writable_schema = 1;" + 
-                              "delete from sqlite_master where type in ('table', 'index', 'trigger');" +
-                              "PRAGMA writable_schema = 0;";
-        creator.ExecuteNonQuery();
         creator.CommandText = "Create table 'Users'(" +
                               "'Pk_User' int not null primary key," +
                               "'User Name' varchar(255) not null" +
@@ -124,6 +127,15 @@ public class Connector
     /// <param name="Query">Запрос</param>
     /// <returns>Результат запроса в виде таблицы</returns>
     public DataTable Execute_Query(string Query)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Выполняет запрос
+    /// </summary>
+    /// <param name="Query">Запрос</param>
+    public void Execute_Action(string Query)
     {
         throw new NotImplementedException();
     }

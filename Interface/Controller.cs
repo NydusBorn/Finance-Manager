@@ -13,4 +13,12 @@ public class Controller
     {
         _connection = new Connector();
     }
+
+    /// <summary>
+    /// Производит закрытие соединение
+    /// </summary>
+    public void Cause_Close()
+    {
+        _connection.Close();
+    }
 }
