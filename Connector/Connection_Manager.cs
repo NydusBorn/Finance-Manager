@@ -4,6 +4,13 @@ using SQLitePCL;
 
 namespace Connection_Manager;
 
+/*
+todo: Параметризовать функции Create_Database и Check_Conforming, Например Create_Database(string path)
+todo: Реализовать Execute_Query и Execute_Action
+ */
+
+
+
 /// <summary>
 /// Класс гарантирующий наличие базы данных в каталоге программы и её соответствие формату
 /// </summary>
