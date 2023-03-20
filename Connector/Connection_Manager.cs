@@ -21,6 +21,7 @@ public class Connector
     { 
         _connection = new SqliteConnection("Data Source=Data.db");
         _connection.Open();
+        Execute_Query("select * from Transactions");
     }
 
     /// <summary>
@@ -45,6 +46,7 @@ public class Connector
                               "'Pk_Transaction' int not null primary key," +
                               "'Fk_User' int not null," +
                               "'Transaction Description' varchar(255) not null," +
+                              "'Transaction Change' int not null," +
                               "foreign key('Fk_User') references 'Users'('Pk_User')" +
                               ");";
         creator.ExecuteNonQuery();
@@ -110,6 +112,12 @@ public class Connector
         if (res.Read())
         {
             if ((string)res["name"] != "Transaction Description" || (string)res["type"] != "varchar(255)" || (long)res["notnull"] != 1 || (long)res["pk"] != 0 ||
+                res["dflt_value"].GetType().Name != "DBNull")
+                return false;
+        }
+        if (res.Read())
+        {
+            if ((string)res["name"] != "Transaction Change" || (string)res["type"] != "INT" || (long)res["notnull"] != 1 || (long)res["pk"] != 0 ||
                 res["dflt_value"].GetType().Name != "DBNull")
                 return false;
         }
