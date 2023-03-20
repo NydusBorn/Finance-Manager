@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using Microsoft.Data.Sqlite;
-using SQLitePCL;
 
 namespace Connection_Manager;
 
@@ -135,7 +134,30 @@ public class Connector
     /// <returns>Результат запроса в виде таблицы</returns>
     public DataTable Execute_Query(string Query)
     {
-        throw new NotImplementedException();
+        DataTable table = new DataTable();
+        SqliteCommand command = new SqliteCommand(Query, _connection);
+        bool f = true;
+        using (SqliteDataReader reader = command.ExecuteReader())
+        {
+            if (reader.HasRows) 
+            {
+                while (reader.Read())  
+                {
+                    if (f)
+                    {
+                        for (int i = 0; i <= reader.FieldCount; i++)
+                            table.Columns.Add(i.ToString(), typeof(object));
+                        f = false;
+                    }
+
+                    DataRow row = table.NewRow();
+                    for (int i = 0; i < reader.FieldCount; i++)
+                        row[i] = reader.GetValue(i);
+                    table.Rows.Add(row);    
+                }
+            }
+        }
+        return table;
     }
 
     /// <summary>
@@ -144,6 +166,7 @@ public class Connector
     /// <param name="Query">Запрос</param>
     public void Execute_Action(string Query)
     {
-        throw new NotImplementedException();
+        SqliteCommand command = new SqliteCommand(Query, _connection);
+        command.ExecuteNonQuery();
     }
 }
