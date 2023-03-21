@@ -17,7 +17,18 @@ public class Controller
     }
 
     public DataTable GetUsers() {
-        return _connection.Execute_Query("SELECT * FROM Users");
+        return _connection.Execute_Query("SELECT Pk_User AS \"ID пользователя\", \"User Name\" AS \"Имя пользователя\" FROM Users");
+    }
+
+    public DataTable GetTransactions() {
+        return _connection.Execute_Query("SELECT " +
+            "\"Pk_Transaction\" AS \"ID транзакции\", " +
+            "\"User Name\" AS \"Имя пользователя\", " +
+            "\"Transaction Description\" AS \"Описание транзакции\", " +
+            "\"Transaction Change\" AS \"Изменение транзакции\", " +
+            "DATETIME(\"Transaction Date\") AS \"Дата транзакции\" " +
+            "FROM Transactions " +
+            "JOIN Users on Fk_User = Pk_User");
     }
 
     /// <summary>

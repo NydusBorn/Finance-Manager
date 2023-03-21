@@ -42,7 +42,7 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="60" />
                             </Grid.RowDefinitions>
-                            <DataGrid Name="Data_Grid"></DataGrid>
+                            <DataGrid Name="Data_Grid_Users"></DataGrid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="Добавить пользователя" Margin="5" Width="200" />
                                 <Button Content="Удалить пользователя" Margin="5" Width="200" />
@@ -55,7 +55,7 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="60" />
                             </Grid.RowDefinitions>
-                            <DataGrid></DataGrid>
+                            <DataGrid Name="Data_Grid_Transactions"></DataGrid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="Произвести транзакцию" Margin="5" Width="200" />
                                 <Button Content="Удалить транзакцию" Margin="5" Width="200"/>
@@ -70,12 +70,12 @@
                             </Grid.RowDefinitions>
                             <DataGrid></DataGrid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <ComboBox Margin="5" Width="200" >
+                                <ComboBox Name="Report_ComboBox" Margin="5" Width="200" >
                                     <ComboBoxItem Content="За период"></ComboBoxItem>
                                     <ComboBoxItem Content="По Пользователям"></ComboBoxItem>
                                     <ComboBoxItem Content="За период по пользователю"></ComboBoxItem>
                                 </ComboBox>
-                                <Button Content="Вывести отчет" Margin="5" Width="200" />
+                                <Button Name="Show_Report" Click="Show_Report_Click" Content="Вывести отчет" Margin="5" Width="200" />
                                 <Button Content="Экспортировать отчет" Margin="5" Width="200" />
                             </StackPanel>
                         </Grid>
