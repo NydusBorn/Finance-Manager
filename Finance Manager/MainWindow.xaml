@@ -68,7 +68,7 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="60" />
                             </Grid.RowDefinitions>
-                            <DataGrid></DataGrid>
+                            <DataGrid Name="Data_Grid_Rep"></DataGrid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <ComboBox Name="Report_ComboBox" Margin="5" Width="200" >
                                     <ComboBoxItem Content="За период"></ComboBoxItem>

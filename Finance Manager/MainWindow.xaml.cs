@@ -61,7 +61,17 @@ namespace Finance_Manager {
             int selectedIdx = Report_ComboBox.SelectedIndex;
             switch (selectedIdx) {
                 case 0: {
-
+                        Data_Grid_Rep.ItemsSource = _controller.GetTransactionsPerPeriod(new DateTime(1970,1,5,0,0,0), new DateTime(1970, 1, 19, 0, 0, 0)).DefaultView;
+                        break;
+                    }
+                case 1:
+                    {
+                        Data_Grid_Rep.ItemsSource = _controller.GetUser(2).DefaultView;
+                        break;
+                    }
+                case 2:
+                    {
+                        Data_Grid_Rep.ItemsSource = _controller.GetTransactionsPerPeriodAndUser(new DateTime(1970, 1, 5, 0, 0, 0), new DateTime(1970, 1, 17, 0, 0, 0), 1).DefaultView;
                         break;
                     }
             }
