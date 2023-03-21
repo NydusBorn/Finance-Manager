@@ -6,26 +6,22 @@ namespace Connection_Manager;
 /// <summary>
 /// Класс гарантирующий наличие базы данных в каталоге программы и её соответствие формату
 /// </summary>
-public class Connector
-{
+public class Connector {
     private SqliteConnection _connection;
     private string _path;
-    public Connector(string path)
-    {
+    public Connector(string path) {
         _path = path;
         _connection = new SqliteConnection($"Data Source={_path}");
         _connection.Open();
-        if (!Check_Conforming())
-        {
-            Create_Database();    
+        if (!Check_Conforming()) {
+            Create_Database();
         }
     }
 
     /// <summary>
     /// Обнуляет базу данных на подключении и создаёт новую, подходящую для приложения
     /// </summary>
-    public void Create_Database()
-    {
+    public void Create_Database() {
         SqliteCommand creator = new SqliteCommand();
         _connection.Close();
         _connection.Dispose();
@@ -54,15 +50,13 @@ public class Connector
     /// Проверяет базу данных на соответствие требованиям
     /// </summary>
     /// <returns>true если соответствует, иначе false</returns>
-    public bool Check_Conforming()
-    {
+    public bool Check_Conforming() {
         SqliteCommand checker = new();
         checker.Connection = _connection;
         checker.CommandText = "select * from sqlite_master where type is 'table';";
         var res = checker.ExecuteReader();
         bool has_users = false, has_transactions = false;
-        while (res.Read())
-        {
+        while (res.Read()) {
             string resb = (string)res["name"];
             if (!has_users && resb == "Users") has_users = true;
             else if (has_users && resb == "Users") return false;
@@ -71,61 +65,49 @@ public class Connector
             else return false;
         }
         res.Close();
-        
+
         checker.CommandText = "PRAGMA table_info ('Users');";
         res = checker.ExecuteReader();
-        if (res.Read())
-        {
+        if (res.Read()) {
             if ((string)res["name"] != "Pk_User" || (string)res["type"] != "INT" || (long)res["notnull"] != 1 || (long)res["pk"] != 1 ||
                 res["dflt_value"].GetType().Name != "DBNull")
                 return false;
-        }
-        else return false;
-        if (res.Read())
-        {
+        } else return false;
+        if (res.Read()) {
             if ((string)res["name"] != "User Name" || (string)res["type"] != "varchar(255)" || (long)res["notnull"] != 1 || (long)res["pk"] != 0 ||
                 res["dflt_value"].GetType().Name != "DBNull")
                 return false;
-        }
-        else return false;
+        } else return false;
         if (res.Read()) return false;
         res.Close();
-        
+
         checker.CommandText = "PRAGMA table_info ('Transactions');";
         res = checker.ExecuteReader();
-        if (res.Read())
-        {
+        if (res.Read()) {
             if ((string)res["name"] != "Pk_Transaction" || (string)res["type"] != "INT" || (long)res["notnull"] != 1 || (long)res["pk"] != 1 ||
                 res["dflt_value"].GetType().Name != "DBNull")
                 return false;
-        }
-        else return false;
-        if (res.Read())
-        {
+        } else return false;
+        if (res.Read()) {
             if ((string)res["name"] != "Fk_User" || (string)res["type"] != "INT" || (long)res["notnull"] != 1 || (long)res["pk"] != 0 ||
                 res["dflt_value"].GetType().Name != "DBNull")
                 return false;
-        }
-        else return false;
-        if (res.Read())
-        {
+        } else return false;
+        if (res.Read()) {
             if ((string)res["name"] != "Transaction Description" || (string)res["type"] != "varchar(255)" || (long)res["notnull"] != 1 || (long)res["pk"] != 0 ||
                 res["dflt_value"].GetType().Name != "DBNull")
                 return false;
         }
-        if (res.Read())
-        {
+        if (res.Read()) {
             if ((string)res["name"] != "Transaction Change" || (string)res["type"] != "INT" || (long)res["notnull"] != 1 || (long)res["pk"] != 0 ||
                 res["dflt_value"].GetType().Name != "DBNull")
                 return false;
         }
-        if (res.Read())
-        {
+        if (res.Read()) {
             if ((string)res["name"] != "Transaction Date" || (string)res["type"] != "INT" || (long)res["notnull"] != 1 || (long)res["pk"] != 0 ||
                 res["dflt_value"].GetType().Name != "DBNull")
                 return false;
-        }
-        else return false;
+        } else return false;
         if (res.Read()) return false;
 
         return true;
@@ -134,8 +116,7 @@ public class Connector
     /// <summary>
     /// Закрывает соединение
     /// </summary>
-    public void Close()
-    {
+    public void Close() {
         _connection.Close();
     }
 
@@ -144,29 +125,29 @@ public class Connector
     /// </summary>
     /// <param name="Query">Запрос</param>
     /// <returns>Результат запроса в виде таблицы</returns>
-    public DataTable Execute_Query(string Query)
-    {
+    public DataTable Execute_Query(string Query) {
         DataTable table = new DataTable();
         SqliteCommand command = new SqliteCommand(Query, _connection);
         bool f = true;
-        using (SqliteDataReader reader = command.ExecuteReader())
-        {
-            if (reader.HasRows) 
-            {
-                while (reader.Read())  
-                {
+        using (SqliteDataReader reader = command.ExecuteReader()) {
+            if (reader.HasRows) {
+                while (reader.Read()) {
                     if (f) {
-                        //foreach (string columnName in columnNames)
-                        //    table.Columns.Add(reader.GetName(i));
                         for (int i = 0; i <= reader.FieldCount - 1; i++)
                             table.Columns.Add(reader.GetName(i));
                         f = false;
                     }
 
                     DataRow row = table.NewRow();
-                    for (int i = 0; i < reader.FieldCount; i++)
+                    for (int i = 0; i < reader.FieldCount; i++) {
+                        if (reader.GetName(i) == "Дата транзакции") {
+                            DateTime dateTime = GetDateTime((long)(reader.GetValue(i)));
+                            row[i] = dateTime.ToString("dd-MM-yyyy");
+                            continue;
+                        }
                         row[i] = reader.GetValue(i);
-                    table.Rows.Add(row);    
+                    }
+                    table.Rows.Add(row);
                 }
             }
         }
@@ -174,11 +155,21 @@ public class Connector
     }
 
     /// <summary>
+    /// Перевод времени с unixTime в DateTime
+    /// </summary>
+    /// <param name="unixTime"></param>
+    /// <returns></returns>
+    public DateTime GetDateTime(long unixTime) {
+        DateTimeOffset dateTimeOffSet = DateTimeOffset.FromUnixTimeSeconds(unixTime);
+        DateTime dateTime = dateTimeOffSet.UtcDateTime;
+        return dateTime;
+    }
+
+    /// <summary>
     /// Выполняет запрос
     /// </summary>
     /// <param name="Query">Запрос</param>
-    public void Execute_Action(string Query)
-    {
+    public void Execute_Action(string Query) {
         SqliteCommand command = new SqliteCommand(Query, _connection);
         command.ExecuteNonQuery();
     }

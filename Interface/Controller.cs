@@ -26,7 +26,7 @@ public class Controller
             "\"User Name\" AS \"Имя пользователя\", " +
             "\"Transaction Description\" AS \"Описание транзакции\", " +
             "\"Transaction Change\" AS \"Изменение транзакции\", " +
-            "DATETIME(\"Transaction Date\") AS \"Дата транзакции\" " +
+            "\"Transaction Date\" AS \"Дата транзакции\" " +
             "FROM Transactions " +
             "JOIN Users on Fk_User = Pk_User");
     }
