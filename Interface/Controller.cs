@@ -17,7 +17,7 @@ public class Controller
     }
 
     public DataTable GetUsers() {
-        return _connection.Execute_Query("SELECT * FROM Users", new string[]{"id", "name"});
+        return _connection.Execute_Query("SELECT * FROM Users");
     }
 
     /// <summary>

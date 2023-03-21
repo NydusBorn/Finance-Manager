@@ -144,7 +144,7 @@ public class Connector
     /// </summary>
     /// <param name="Query">Запрос</param>
     /// <returns>Результат запроса в виде таблицы</returns>
-    public DataTable Execute_Query(string Query, string[] columnNames)
+    public DataTable Execute_Query(string Query)
     {
         DataTable table = new DataTable();
         SqliteCommand command = new SqliteCommand(Query, _connection);
@@ -156,8 +156,10 @@ public class Connector
                 while (reader.Read())  
                 {
                     if (f) {
-                        foreach (string columnName in columnNames)
-                            table.Columns.Add(columnName);
+                        //foreach (string columnName in columnNames)
+                        //    table.Columns.Add(reader.GetName(i));
+                        for (int i = 0; i <= reader.FieldCount - 1; i++)
+                            table.Columns.Add(reader.GetName(i));
                         f = false;
                     }
 

@@ -30,6 +30,7 @@ namespace Finance_Manager
         {
             _controller = new Controller("Data.db");
             InitializeComponent();
+            Data_Grid.ItemsSource = _controller.GetUsers().DefaultView;
         }
 
         private void Tab_Users_Select(object sender, RoutedEventArgs e)
@@ -39,7 +40,6 @@ namespace Finance_Manager
             Tg_Transaction_Sel.IsChecked = false;
             Tg_Reports_Sel.IsChecked = false;
             Data_Grid.ItemsSource = _controller.GetUsers().DefaultView;
-            Data_Grid.DataContext = _controller.GetUsers().DefaultView;
         }
         private void Tab_Transactions_Select(object sender, RoutedEventArgs e)
         {
