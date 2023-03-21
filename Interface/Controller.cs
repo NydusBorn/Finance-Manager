@@ -8,10 +8,11 @@ namespace Interface;
 public class Controller
 {
     private Connector _connection;
-
-    public Controller()
+    private string _path; 
+    public Controller(string path)
     {
-        _connection = new Connector();
+        _connection = new Connector(path);
+        _path = path;
     }
 
     /// <summary>

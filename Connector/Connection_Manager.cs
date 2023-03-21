@@ -3,25 +3,22 @@ using Microsoft.Data.Sqlite;
 
 namespace Connection_Manager;
 
-/*
-todo: Параметризовать функции Create_Database и Check_Conforming, Например Create_Database(string path)
-todo: Реализовать Execute_Query и Execute_Action
- */
-
-
-
 /// <summary>
 /// Класс гарантирующий наличие базы данных в каталоге программы и её соответствие формату
 /// </summary>
 public class Connector
 {
     private SqliteConnection _connection;
-    
-    public Connector()
-    { 
-        _connection = new SqliteConnection("Data Source=Data.db");
+    private string _path;
+    public Connector(string path)
+    {
+        _path = path;
+        _connection = new SqliteConnection($"Data Source={_path}");
         _connection.Open();
-        Execute_Query("select * from Transactions");
+        if (!Check_Conforming())
+        {
+            Create_Database();    
+        }
     }
 
     /// <summary>
@@ -32,9 +29,9 @@ public class Connector
         SqliteCommand creator = new SqliteCommand();
         _connection.Close();
         _connection.Dispose();
-        _connection = new("Data Source=Data.db");
+        _connection = new($"Data Source={_path}");
         SqliteConnection.ClearAllPools();
-        File.Delete("Data.db");
+        File.Delete(_path);
         _connection.Open();
         creator.Connection = _connection;
         creator.CommandText = "Create table 'Users'(" +

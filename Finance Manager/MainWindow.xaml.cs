@@ -27,7 +27,7 @@ namespace Finance_Manager
         private Controller _controller;
         public MainWindow()
         {
-            _controller = new Controller();
+            _controller = new Controller("Data.db");
             InitializeComponent();
         }
 
