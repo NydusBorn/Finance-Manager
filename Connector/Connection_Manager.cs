@@ -140,11 +140,6 @@ public class Connector {
 
                     DataRow row = table.NewRow();
                     for (int i = 0; i < reader.FieldCount; i++) {
-                        if (reader.GetName(i) == "Дата транзакции") {
-                            DateTime dateTime = GetDateTime((long)(reader.GetValue(i)));
-                            row[i] = dateTime.ToString("dd-MM-yyyy");
-                            continue;
-                        }
                         row[i] = reader.GetValue(i);
                     }
                     table.Rows.Add(row);
@@ -152,17 +147,6 @@ public class Connector {
             }
         }
         return table;
-    }
-
-    /// <summary>
-    /// Перевод времени с unixTime в DateTime
-    /// </summary>
-    /// <param name="unixTime"></param>
-    /// <returns></returns>
-    public DateTime GetDateTime(long unixTime) {
-        DateTimeOffset dateTimeOffSet = DateTimeOffset.FromUnixTimeSeconds(unixTime);
-        DateTime dateTime = dateTimeOffSet.UtcDateTime;
-        return dateTime;
     }
 
     /// <summary>
