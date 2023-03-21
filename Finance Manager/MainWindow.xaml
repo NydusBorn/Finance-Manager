@@ -42,7 +42,7 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="60" />
                             </Grid.RowDefinitions>
-                            <DataGrid></DataGrid>
+                            <DataGrid Name="Data_Grid"></DataGrid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="Добавить пользователя" Margin="5" Width="200" />
                                 <Button Content="Удалить пользователя" Margin="5" Width="200" />

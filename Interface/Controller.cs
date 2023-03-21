@@ -1,4 +1,5 @@
 ﻿using Connection_Manager;
+using System.Data;
 
 namespace Interface;
 
@@ -13,6 +14,10 @@ public class Controller
     {
         _connection = new Connector(path);
         _path = path;
+    }
+
+    public DataTable GetUsers() {
+        return _connection.Execute_Query("SELECT * FROM Users", new string[]{"id", "name"});
     }
 
     /// <summary>

@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Interface;
 using Wpf.Ui.Controls;
+using System.Data;
 
 namespace Finance_Manager
 {
@@ -37,6 +38,8 @@ namespace Finance_Manager
             Tc_Tabs.SelectedIndex = 0;
             Tg_Transaction_Sel.IsChecked = false;
             Tg_Reports_Sel.IsChecked = false;
+            Data_Grid.ItemsSource = _controller.GetUsers().DefaultView;
+            Data_Grid.DataContext = _controller.GetUsers().DefaultView;
         }
         private void Tab_Transactions_Select(object sender, RoutedEventArgs e)
         {
