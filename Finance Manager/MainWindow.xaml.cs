@@ -42,15 +42,24 @@ namespace Finance_Manager {
                 ms.Content = "Вы хотите пересоздать базу данных?";
                 ms.ButtonLeftName = "Да";
                 ms.ButtonRightName = "Нет";
+                bool result_ok = false;
                 ms.ButtonLeftClick += (sender, args) =>
                 {
                     _controller.Cause_Creation();
+                    result_ok = true;
                     ms.Close();
                 };
                 ms.ButtonRightClick += (sender, args) =>
                 {
                     ms.Close();
-                    MainWindow_OnClosing(sender,new CancelEventArgs());
+                };
+                ms.Closed += (sender, args) =>
+                {
+                    ms.Close();
+                    if (!result_ok)
+                    {
+                        MainWindow_OnClosing(sender,new CancelEventArgs());    
+                    }
                 };
                 if (_controller.State != Connector.Database_State.Incorrect)
                 {
