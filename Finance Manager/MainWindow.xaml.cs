@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 using Interface;
 using Wpf.Ui.Controls;
 using System.Data;
+using Connection_Manager;
+using MessageBox = Wpf.Ui.Controls.MessageBox;
 
 namespace Finance_Manager {
     /// <summary>
@@ -27,7 +29,41 @@ namespace Finance_Manager {
         public MainWindow() {
             _controller = new Controller("Data.db");
             InitializeComponent();
+            Application.Current.Dispatcher.Invoke(Validation);
+        }
+        
+        async void Validation()
+        {
+            await Task.Delay(100);
+            
+            if (_controller.State != Connector.Database_State.Correct)
+            {
+                var ms = new MessageBox();
+                ms.Content = "Вы хотите пересоздать базу данных?";
+                ms.ButtonLeftName = "Да";
+                ms.ButtonRightName = "Нет";
+                ms.ButtonLeftClick += (sender, args) =>
+                {
+                    _controller.Cause_Creation();
+                    ms.Close();
+                };
+                ms.ButtonRightClick += (sender, args) =>
+                {
+                    ms.Close();
+                    MainWindow_OnClosing(sender,new CancelEventArgs());
+                };
+                if (_controller.State != Connector.Database_State.Incorrect)
+                {
+                    ms.Title = "База данных некорректна.";
+                }
+                else if (_controller.State != Connector.Database_State.Missing)
+                {
+                    ms.Title = "База данных несуществует.";
+                }
+                ms.ShowDialog(); 
+            }
             Data_Grid_Users.ItemsSource = _controller.GetUsers().DefaultView;
+            Data_Grid_Transactions.ItemsSource = _controller.GetTransactions().DefaultView;
         }
 
         private void Tab_Users_Select(object sender, RoutedEventArgs e) {
@@ -35,14 +71,13 @@ namespace Finance_Manager {
             Tc_Tabs.SelectedIndex = 0;
             Tg_Transaction_Sel.IsChecked = false;
             Tg_Reports_Sel.IsChecked = false;
-            Data_Grid_Users.ItemsSource = _controller.GetUsers().DefaultView;
         }
         private void Tab_Transactions_Select(object sender, RoutedEventArgs e) {
             if (!IsInitialized) return;
             Tc_Tabs.SelectedIndex = 1;
             Tg_Users_Sel.IsChecked = false;
             Tg_Reports_Sel.IsChecked = false;
-            Data_Grid_Transactions.ItemsSource = _controller.GetTransactions().DefaultView;
+            
         }
 
         private void Tab_Reports_Select(object sender, RoutedEventArgs e) {

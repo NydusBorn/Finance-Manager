@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finance Manager", "Finance 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connector", "Connector\Connector.csproj", "{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface\Interface.csproj", "{9B256B13-463B-4A4D-8898-EF0811989DC1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{748CC8AD-2F35-424B-8A8C-BC85DD2E998F}"
 EndProject
 Global
@@ -22,10 +20,6 @@ Global
 		{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B256B13-463B-4A4D-8898-EF0811989DC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B256B13-463B-4A4D-8898-EF0811989DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B256B13-463B-4A4D-8898-EF0811989DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B256B13-463B-4A4D-8898-EF0811989DC1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{748CC8AD-2F35-424B-8A8C-BC85DD2E998F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{748CC8AD-2F35-424B-8A8C-BC85DD2E998F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{748CC8AD-2F35-424B-8A8C-BC85DD2E998F}.Release|Any CPU.ActiveCfg = Release|Any CPU

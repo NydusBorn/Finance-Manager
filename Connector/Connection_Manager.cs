@@ -9,12 +9,29 @@ namespace Connection_Manager;
 public class Connector {
     private SqliteConnection _connection;
     private string _path;
+    public Database_State State;
+    public enum Database_State
+    {
+        Correct,
+        Incorrect,
+        Missing
+    }
     public Connector(string path) {
         _path = path;
-        _connection = new SqliteConnection($"Data Source={_path}");
-        _connection.Open();
-        if (!Check_Conforming()) {
-            Create_Database();
+        try
+        {
+            _connection = new SqliteConnection($"Data Source={_path}");
+            _connection.Open();
+            if (!Check_Conforming())
+            {
+                State = Database_State.Incorrect;
+            }
+
+            State = Database_State.Correct;
+        }
+        catch (Exception e)
+        {
+            State = Database_State.Missing;
         }
     }
 

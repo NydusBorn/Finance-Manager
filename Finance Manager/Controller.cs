@@ -1,5 +1,8 @@
-﻿using Connection_Manager;
+﻿using System;
+using Connection_Manager;
 using System.Data;
+using System.Threading.Tasks;
+using Wpf.Ui.Controls;
 
 namespace Interface;
 
@@ -9,28 +12,31 @@ namespace Interface;
 public class Controller
 {
     private Connector _connection;
+    public Connector.Database_State State;
     private string _path; 
     public Controller(string path)
     {
         _connection = new Connector(path);
         _path = path;
+        State = _connection.State;
     }
 
+    
+    
     public DataTable GetUsers() {
         return _connection.Execute_Query("SELECT Pk_User AS \"ID пользователя\", \"User Name\" AS \"Имя пользователя\" FROM Users");
     }
 
     public DataTable GetTransactions()
     {
-        long time = Time(new DateTime(1970,1,17,0,0,0));
         return _connection.Execute_Query("SELECT " +
-            "\"Pk_Transaction\" AS \"ID транзакции\", " +
-            "\"User Name\" AS \"Имя пользователя\", " +
-            "\"Transaction Description\" AS \"Описание транзакции\", " +
-            "\"Transaction Change\" AS \"Изменение транзакции\", " +
-            "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
-            "FROM Transactions " +
-            "JOIN Users on Fk_User = Pk_User ");
+                                         "\"Pk_Transaction\" AS \"ID транзакции\", " +
+                                         "\"User Name\" AS \"Имя пользователя\", " +
+                                         "\"Transaction Description\" AS \"Описание транзакции\", " +
+                                         "\"Transaction Change\" AS \"Изменение транзакции\", " +
+                                         "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
+                                         "FROM Transactions " +
+                                         "JOIN Users on Fk_User = Pk_User ");
     }
 
     public DataTable GetTransactionsPerPeriod(DateTime dt, DateTime dt2)
@@ -87,5 +93,13 @@ public class Controller
     public void Cause_Close()
     {
         _connection.Close();
+    }
+
+    /// <summary>
+    /// Производит пересоздание базы данных
+    /// </summary>
+    public void Cause_Creation()
+    {
+        _connection.Create_Database();
     }
 }
