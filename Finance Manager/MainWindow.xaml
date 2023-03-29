@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:Finance_Manager"
              mc:Ignorable="d"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              ExtendsContentIntoTitleBar="True"
@@ -15,10 +14,10 @@
              Closing="MainWindow_OnClosing">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ui:TitleBar Title="Finance Manager" VerticalContentAlignment="Stretch" Padding="10,0,0,0"/>
+        <ui:TitleBar Title="Finance Manager" VerticalContentAlignment="Stretch" Padding="10,0,0,0" />
         <Grid Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
@@ -26,9 +25,12 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <ToggleButton Content="Пользователи" FontSize="25" Width="200" Margin="5" IsChecked="True" Name="Tg_Users_Sel" Checked="Tab_Users_Select" />
-                    <ToggleButton Content="Транзакции" FontSize="25" Width="200" Margin="5" Name="Tg_Transaction_Sel" Checked="Tab_Transactions_Select"/>
-                    <ToggleButton Content="Отчеты" FontSize="25" Width="200" Margin="5" Name="Tg_Reports_Sel" Checked="Tab_Reports_Select"/>
+                    <ToggleButton Content="Пользователи" FontSize="25" Width="200" Margin="5" IsChecked="True"
+                                  Name="Tg_Users_Sel" Checked="Tab_Users_Select" />
+                    <ToggleButton Content="Транзакции" FontSize="25" Width="200" Margin="5" Name="Tg_Transaction_Sel"
+                                  Checked="Tab_Transactions_Select" />
+                    <ToggleButton Content="Отчеты" FontSize="25" Width="200" Margin="5" Name="Tg_Reports_Sel"
+                                  Checked="Tab_Reports_Select" />
                 </StackPanel>
                 <TabControl Grid.Row="1" Name="Tc_Tabs">
                     <TabControl.ItemContainerStyle>
@@ -42,10 +44,10 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="60" />
                             </Grid.RowDefinitions>
-                            <DataGrid Name="Data_Grid_Users"></DataGrid>
+                            <DataGrid Name="Data_Grid_Users" />
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button Content="Добавить пользователя" Margin="5" Width="200" />
-                                <Button Content="Удалить пользователя" Margin="5" Width="200" />
+                                <Button Content="Добавить пользователя" Margin="5" Width="200" Click="User_Add" />
+                                <Button Content="Удалить пользователя" Margin="5" Width="200" Click="User_Remove" />
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -55,10 +57,10 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="60" />
                             </Grid.RowDefinitions>
-                            <DataGrid Name="Data_Grid_Transactions"></DataGrid>
+                            <DataGrid Name="Data_Grid_Transactions" />
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button Content="Произвести транзакцию" Margin="5" Width="200" />
-                                <Button Content="Удалить транзакцию" Margin="5" Width="200"/>
+                                <Button Content="Произвести транзакцию" Margin="5" Width="200" Click="Transaction_Add" />
+                                <Button Content="Удалить транзакцию" Margin="5" Width="200" Click="Transaction_Remove" />
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -68,14 +70,15 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="60" />
                             </Grid.RowDefinitions>
-                            <DataGrid Name="Data_Grid_Rep"></DataGrid>
+                            <DataGrid Name="Data_Grid_Rep" />
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <ComboBox Name="Report_ComboBox" Margin="5" Width="200" >
-                                    <ComboBoxItem Content="За период"></ComboBoxItem>
-                                    <ComboBoxItem Content="По Пользователям"></ComboBoxItem>
-                                    <ComboBoxItem Content="За период по пользователю"></ComboBoxItem>
+                                <ComboBox Name="Report_ComboBox" Margin="5" Width="200">
+                                    <ComboBoxItem Content="За период" />
+                                    <ComboBoxItem Content="По Пользователям" />
+                                    <ComboBoxItem Content="За период по пользователю" />
                                 </ComboBox>
-                                <Button Name="Show_Report" Click="Show_Report_Click" Content="Вывести отчет" Margin="5" Width="200" />
+                                <Button Name="Show_Report" Click="Show_Report_Click" Content="Вывести отчет" Margin="5"
+                                        Width="200" />
                                 <Button Content="Экспортировать отчет" Margin="5" Width="200" />
                             </StackPanel>
                         </Grid>

@@ -6,7 +6,6 @@ todo: Создание базы и удаление после закрытия 
 todo: Создание базы и удаление после открытия соединения (Create_Database)
  */
 
-
 [TestClass]
 public class UnitTest1
 {
