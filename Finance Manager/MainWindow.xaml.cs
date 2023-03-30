@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Connection_Manager;
 using Wpf.Ui.Controls;
 using MessageBox = Wpf.Ui.Controls.MessageBox;
@@ -14,8 +15,8 @@ namespace Finance_Manager;
 /// </summary>
 public partial class MainWindow : UiWindow
 {
-    private readonly Controller _controller;
-
+    public Controller _controller;
+    
     public MainWindow()
     {
         _controller = new Controller("Data.db");
@@ -51,11 +52,17 @@ public partial class MainWindow : UiWindow
             else if (_controller.State != Connector.Database_State.Missing) ms.Title = "База данных несуществует.";
             ms.ShowDialog();
         }
-
-        Data_Grid_Users.ItemsSource = _controller.GetUsers().DefaultView;
-        Data_Grid_Transactions.ItemsSource = _controller.GetTransactions().DefaultView;
+        Refresh_Data();
     }
 
+    public void Refresh_Data()
+    {
+        _controller.GetUsers();
+        _controller.GetTransactions();
+        Data_Grid_Users.ItemsSource = _controller.Users.DefaultView;
+        Data_Grid_Transactions.ItemsSource = _controller.Transactions.DefaultView;
+    }
+    
     private void Tab_Users_Select(object sender, RoutedEventArgs e)
     {
         if (!IsInitialized) return;
@@ -129,7 +136,7 @@ public partial class MainWindow : UiWindow
 
     private void User_Add(object sender, RoutedEventArgs e)
     {
-        var us = new Add_User();
+        var us = new Add_User(this);
         us.ShowDialog();
     }
 
@@ -140,7 +147,7 @@ public partial class MainWindow : UiWindow
 
     private void Transaction_Add(object sender, RoutedEventArgs e)
     {
-        var tr = new Add_Transaction();
+        var tr = new Add_Transaction(this);
         tr.ShowDialog();
     }
 
@@ -148,4 +155,5 @@ public partial class MainWindow : UiWindow
     {
         throw new NotImplementedException();
     }
+
 }

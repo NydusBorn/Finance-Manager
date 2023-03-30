@@ -27,8 +27,8 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" TextAlignment="Center" Text="Введите имя нового пользователя" />
                 <TextBox Grid.Row="1" Name="Tx_New_User" />
-                <Button Grid.Row="2" Width="80" HorizontalAlignment="Left" Content="Создать" />
-                <Button Grid.Row="2" Width="80" HorizontalAlignment="Right" Content="Отмена" />
+                <Button Grid.Row="2" Width="80" HorizontalAlignment="Left" Content="Создать" Click="Create" />
+                <Button Grid.Row="2" Width="80" HorizontalAlignment="Right" Content="Отмена" Click="Cancel"/>
                 <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="Ожидание" TextAlignment="Center"
                            VerticalAlignment="Center" Name="Tb_Status" />
             </Grid>

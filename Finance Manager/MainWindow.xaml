@@ -44,7 +44,11 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="60" />
                             </Grid.RowDefinitions>
-                            <DataGrid Name="Data_Grid_Users" />
+                            <ui:DataGrid Name="Data_Grid_Users" SelectionUnit="FullRow" CanUserAddRows="False" CanUserReorderColumns="False" 
+                                      CanUserDeleteRows="False" CanUserResizeColumns="False" 
+                                      CanUserResizeRows="False" CanUserSortColumns="True"
+                                      IsReadOnly="True" SelectionMode="Extended"
+                                      RowStyle="{StaticResource DefaultDataGridRowStyle}"/>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="Добавить пользователя" Margin="5" Width="200" Click="User_Add" />
                                 <Button Content="Удалить пользователя" Margin="5" Width="200" Click="User_Remove" />
@@ -57,7 +61,11 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="60" />
                             </Grid.RowDefinitions>
-                            <DataGrid Name="Data_Grid_Transactions" />
+                            <DataGrid Name="Data_Grid_Transactions" SelectionUnit="FullRow" CanUserAddRows="False" CanUserReorderColumns="False" 
+                                      CanUserDeleteRows="False" CanUserResizeColumns="False" 
+                                      CanUserResizeRows="False" CanUserSortColumns="True"
+                                      IsReadOnly="True" SelectionMode="Extended"
+                                      RowStyle="{StaticResource DefaultDataGridRowStyle}"/>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="Произвести транзакцию" Margin="5" Width="200" Click="Transaction_Add" />
                                 <Button Content="Удалить транзакцию" Margin="5" Width="200" Click="Transaction_Remove" />
@@ -70,7 +78,11 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="60" />
                             </Grid.RowDefinitions>
-                            <DataGrid Name="Data_Grid_Rep" />
+                            <DataGrid Name="Data_Grid_Rep" SelectionUnit="FullRow" CanUserAddRows="False" CanUserReorderColumns="False" 
+                                      CanUserDeleteRows="False" CanUserResizeColumns="False" 
+                                      CanUserResizeRows="False" CanUserSortColumns="True"
+                                      IsReadOnly="True" SelectionMode="Extended"
+                                      RowStyle="{StaticResource DefaultDataGridRowStyle}"/>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <ComboBox Name="Report_ComboBox" Margin="5" Width="200">
                                     <ComboBoxItem Content="За период" />

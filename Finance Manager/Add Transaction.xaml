@@ -39,8 +39,8 @@
                 <DatePicker Grid.Row="3" Grid.Column="0" SelectedDateFormat="Long" Name="Dp_Transaction_Date" />
                 <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Center" Text="Введите цену транзакции" />
                 <TextBox Grid.Row="5" Grid.Column="0" Name="Tx_Transaction_Price" />
-                <Button Grid.Row="6" Grid.Column="0" Width="80" HorizontalAlignment="Left" Content="Создать" />
-                <Button Grid.Row="6" Grid.Column="1" Width="80" HorizontalAlignment="Right" Content="Отмена" />
+                <Button Grid.Row="6" Grid.Column="0" Width="80" HorizontalAlignment="Left" Content="Создать" Click="Create" />
+                <Button Grid.Row="6" Grid.Column="1" Width="80" HorizontalAlignment="Right" Content="Отмена" Click="Cancel" />
                 <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" Text="Введите описание транзакции" />
                 <TextBox Grid.Row="1" Grid.RowSpan="5" Grid.Column="1"
                          Name="Tx_Transaction_Description" AcceptsReturn="True" VerticalAlignment="Stretch"

@@ -13,6 +13,10 @@ public class Controller
     private string _path;
     public Connector.Database_State State;
 
+    public DataTable Users;
+    public DataTable Transactions;
+    
+    
     public Controller(string path)
     {
         _connection = new Connector(path);
@@ -21,15 +25,15 @@ public class Controller
     }
 
 
-    public DataTable GetUsers()
+    public void GetUsers()
     {
-        return _connection.Execute_Query(
+        Users = _connection.Execute_Query(
             "SELECT Pk_User AS \"ID пользователя\", \"User Name\" AS \"Имя пользователя\" FROM Users");
     }
 
-    public DataTable GetTransactions()
+    public void GetTransactions()
     {
-        return _connection.Execute_Query("SELECT " +
+        Transactions = _connection.Execute_Query("SELECT " +
                                          "\"Pk_Transaction\" AS \"ID транзакции\", " +
                                          "\"User Name\" AS \"Имя пользователя\", " +
                                          "\"Transaction Description\" AS \"Описание транзакции\", " +
@@ -87,6 +91,21 @@ public class Controller
         var dt2 = new DateTime(1970, 1, 1, 0, 0, 0);
         var time = (dt.Ticks - dt2.Ticks) / TimeSpan.TicksPerSecond;
         return time;
+    }
+
+    public void Add_User(string UserName)
+    {
+        int id;
+        if (Users.Rows.Count != 0)
+        {
+            id = int.Parse((string)Users.Rows[^1][0]) + 1;
+        }
+        else
+        {
+            id = 0;
+        }
+        
+        _connection.Execute_Action($"Insert Into 'Users' Values ({id}, '{UserName}')");
     }
 
     /// <summary>
