@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Text;
 using Connection_Manager;
 
 namespace Finance_Manager;
@@ -121,6 +123,31 @@ public class Controller
         }
         
         _connection.Execute_Action($"Insert Into 'Transactions' Values ({id}, '{user}', '{description}', '{change}', '{date}')");
+    }
+
+    public void Remove_Users(List<int> users)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (var id in users)
+        {
+            sb.Append($"{id}, ");
+        }
+
+        sb.Remove(sb.Length - 2, 2);
+        _connection.Execute_Action($"Delete From 'Transactions' Where Fk_User In ({sb})");
+        _connection.Execute_Action($"Delete From 'Users' Where Pk_User In ({sb})");
+    }
+
+    public void Remove_Transactions(List<int> transactions)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (var id in transactions)
+        {
+            sb.Append($"{id}, ");
+        }
+
+        sb.Remove(sb.Length - 2, 2);
+        _connection.Execute_Action($"Delete From 'Transactions' Where Pk_Transaction In ({sb})");
     }
 
     /// <summary>

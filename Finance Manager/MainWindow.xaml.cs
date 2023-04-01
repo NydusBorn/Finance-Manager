@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -142,7 +144,13 @@ public partial class MainWindow : UiWindow
 
     private void User_Remove(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        List<int> users = new();
+        foreach (DataRowView row in Data_Grid_Users.SelectedItems)
+        {
+            users.Add(int.Parse((string)row.Row[0]));
+        }
+        _controller.Remove_Users(users);
+        Refresh_Data();
     }
 
     private void Transaction_Add(object sender, RoutedEventArgs e)
@@ -153,7 +161,13 @@ public partial class MainWindow : UiWindow
 
     private void Transaction_Remove(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        List<int> transactions = new();
+        foreach (DataRowView row in Data_Grid_Transactions.SelectedItems)
+        {
+            transactions.Add(int.Parse((string)row.Row[0]));
+        }
+        _controller.Remove_Transactions(transactions);
+        Refresh_Data();
     }
 
 }

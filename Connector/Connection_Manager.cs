@@ -22,12 +22,23 @@ public class Connector
     public Connector(string path)
     {
         _path = path;
+        if (!File.Exists(_path))
+        {
+            _connection = new SqliteConnection($"Data Source={_path}");
+            _connection.Open();
+            Create_Database();
+            State = Database_State.Correct;
+            return;
+        }
         try
         {
             _connection = new SqliteConnection($"Data Source={_path}");
             _connection.Open();
             if (!Check_Conforming()) State = Database_State.Incorrect;
-
+            if (State == Database_State.Incorrect)
+            {
+                return;
+            }
             State = Database_State.Correct;
         }
         catch (Exception e)
@@ -76,6 +87,7 @@ public class Connector
         checker.CommandText = "select * from sqlite_master where type is 'table';";
         var res = checker.ExecuteReader();
         bool has_users = false, has_transactions = false;
+        if (!res.HasRows) return false;
         while (res.Read())
         {
             var resb = (string)res["name"];
