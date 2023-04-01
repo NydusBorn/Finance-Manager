@@ -40,7 +40,7 @@
                     <TextBlock TextAlignment="Center" Text="До" />
                     <DatePicker Name="DP_To" />
                 </StackPanel>
-                <Button Grid.Row="2" Grid.ColumnSpan="2" Width="80" HorizontalAlignment="Center" Content="Создать" />
+                <Button Grid.Row="2" Grid.ColumnSpan="2" Width="80" HorizontalAlignment="Center" Content="Создать" Click="Create"/>
             </Grid>
         </Grid>
     </Grid>

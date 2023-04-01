@@ -21,13 +21,23 @@ public partial class Add_Transaction : UiWindow
         {
             Cb_Transaction_User.Items.Add(row[1]);
         }
-
         std = Tx_Transaction_Description.Background;
     }
     
     public void Create(object sender, RoutedEventArgs e)
     {
         bool success = true;
+        if (Cb_Transaction_User.SelectedIndex == -1)
+        {
+            success = false;
+            Cb_Transaction_User.Background = Brushes.Red;
+            Cb_Transaction_User.ToolTip = "Нужно выбрать пользователя.";
+        }
+        else
+        {
+            Cb_Transaction_User.Background = std;
+            Cb_Transaction_User.ToolTip = null;
+        }
         if (!Check_Date())
         {
             success = false;

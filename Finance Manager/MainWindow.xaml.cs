@@ -102,35 +102,30 @@ public partial class MainWindow : UiWindow
         {
             case 0:
             {
-                var rp = new Request_Report();
+                var rp = new Request_Report(this, Request_Report.ReportType.Date);
                 rp.MinHeight = 170;
                 rp.MaxHeight = 170;
                 rp.RDef_User.Height = new GridLength(0);
                 rp.ShowDialog();
-                Data_Grid_Rep.ItemsSource = _controller
-                    .GetTransactionsPerPeriod(new DateTime(1970, 1, 5, 0, 0, 0), new DateTime(1970, 1, 19, 0, 0, 0))
-                    .DefaultView;
                 break;
             }
             case 1:
             {
-                var rp = new Request_Report();
+                var rp = new Request_Report(this, Request_Report.ReportType.User);
                 rp.MinHeight = 170;
                 rp.MaxHeight = 170;
                 rp.RDef_Date.Height = new GridLength(0);
                 rp.ShowDialog();
-                Data_Grid_Rep.ItemsSource = _controller.GetUser(2).DefaultView;
+                
                 break;
             }
             case 2:
             {
-                var rp = new Request_Report();
+                var rp = new Request_Report(this, Request_Report.ReportType.UserAndDate);
                 rp.MinHeight = 220;
                 rp.MaxHeight = 220;
                 rp.ShowDialog();
-                Data_Grid_Rep.ItemsSource = _controller
-                    .GetTransactionsPerPeriodAndUser(new DateTime(1970, 1, 5, 0, 0, 0),
-                        new DateTime(1970, 1, 17, 0, 0, 0), 1).DefaultView;
+                
                 break;
             }
         }
