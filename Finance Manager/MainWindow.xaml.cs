@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Connection_Manager;
+using Microsoft.Win32;
 using Wpf.Ui.Controls;
 using MessageBox = Wpf.Ui.Controls.MessageBox;
 
@@ -165,4 +168,27 @@ public partial class MainWindow : UiWindow
         Refresh_Data();
     }
 
+    private void Export_Report(object sender, RoutedEventArgs e)
+    {
+        if (Data_Grid_Rep.ItemsSource == null || ((DataView)Data_Grid_Rep.ItemsSource).Count == 0) return;
+        SaveFileDialog sv = new SaveFileDialog();
+        sv.DefaultExt = ".csv";
+        sv.FileName = "Report";
+        sv.Filter = "CSV documents (.csv)|*.csv";
+        var res = sv.ShowDialog();
+        if ((bool)res)
+        {
+            DataView dt = (DataView)Data_Grid_Rep.ItemsSource;
+            using (StreamWriter sw = new StreamWriter(sv.FileName))
+            {
+                IEnumerable<string> columns = Data_Grid_Rep.Columns.Select(field => field.Header.ToString());
+                sw.WriteLine(string.Join(",", columns));
+                foreach (DataRowView row in dt)
+                {
+                    IEnumerable<string> fields = row.Row.ItemArray.Select(field => field.ToString());
+                    sw.WriteLine(string.Join(",", fields));
+                }
+            }
+        }
+    }
 }

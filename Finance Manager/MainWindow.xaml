@@ -89,9 +89,9 @@
                                     <ComboBoxItem Content="По Пользователям" />
                                     <ComboBoxItem Content="За период по пользователю" />
                                 </ComboBox>
-                                <Button Name="Show_Report" Click="Show_Report_Click" Content="Вывести отчет" Margin="5"
+                                <Button Click="Show_Report_Click" Content="Вывести отчет" Margin="5"
                                         Width="200" />
-                                <Button Content="Экспортировать отчет" Margin="5" Width="200" />
+                                <Button Content="Экспортировать отчет" Margin="5" Width="200" Click="Export_Report"/>
                             </StackPanel>
                         </Grid>
                     </TabItem>
