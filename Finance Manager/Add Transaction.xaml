@@ -36,9 +36,9 @@
                 <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Center" Text="Выберите пользователя" />
                 <ComboBox Grid.Row="1" Grid.Column="0" Name="Cb_Transaction_User" />
                 <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Center" Text="Выберите дату транзакции" />
-                <DatePicker Grid.Row="3" Grid.Column="0" SelectedDateFormat="Long" Name="Dp_Transaction_Date" />
+                <DatePicker Grid.Row="3" Grid.Column="0" SelectedDateFormat="Long" Name="Dp_Transaction_Date" SelectedDateChanged="Dp_Transaction_Date_OnSelectedDateChanged" />
                 <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Center" Text="Введите цену транзакции" />
-                <TextBox Grid.Row="5" Grid.Column="0" Name="Tx_Transaction_Price" />
+                <TextBox Grid.Row="5" Grid.Column="0" Name="Tx_Transaction_Price" TextChanged="Tx_Transaction_Price_OnTextChanged" />
                 <Button Grid.Row="6" Grid.Column="0" Width="80" HorizontalAlignment="Left" Content="Создать" Click="Create" />
                 <Button Grid.Row="6" Grid.Column="1" Width="80" HorizontalAlignment="Right" Content="Отмена" Click="Cancel" />
                 <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" Text="Введите описание транзакции" />

@@ -108,6 +108,21 @@ public class Controller
         _connection.Execute_Action($"Insert Into 'Users' Values ({id}, '{UserName}')");
     }
 
+    public void Add_Transaction(int user, string description, int change, long date)
+    {
+        int id;
+        if (Transactions.Rows.Count != 0)
+        {
+            id = int.Parse((string)Transactions.Rows[^1][0]) + 1;
+        }
+        else
+        {
+            id = 0;
+        }
+        
+        _connection.Execute_Action($"Insert Into 'Transactions' Values ({id}, '{user}', '{description}', '{change}', '{date}')");
+    }
+
     /// <summary>
     ///     Производит закрытие соединение
     /// </summary>
