@@ -30,7 +30,7 @@ public class Controller
     public void GetUsers()
     {
         Users = _connection.Execute_Query(
-            "SELECT Pk_User AS \"ID пользователя\", \"User Name\" AS \"Имя пользователя\" FROM Users");
+            "SELECT Pk_User AS \"ID пользователя\", \"User Name\" AS \"Имя пользователя\", SUM(\"Transaction Change\") As \"Текущий Баланс\" FROM Users JOIN Transactions ON Fk_User = Pk_User GROUP BY Pk_User");
     }
 
     public void GetTransactions()
