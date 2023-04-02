@@ -147,6 +147,11 @@ public partial class MainWindow : UiWindow
         {
             users.Add(int.Parse((string)row.Row[0]));
         }
+
+        if (users.Count == 0)
+        {
+            return;
+        }
         _controller.Remove_Users(users);
         Refresh_Data();
     }
@@ -163,6 +168,10 @@ public partial class MainWindow : UiWindow
         foreach (DataRowView row in Data_Grid_Transactions.SelectedItems)
         {
             transactions.Add(int.Parse((string)row.Row[0]));
+        }
+        if (transactions.Count == 0)
+        {
+            return;
         }
         _controller.Remove_Transactions(transactions);
         Refresh_Data();
