@@ -48,7 +48,8 @@
                                       CanUserDeleteRows="False" CanUserResizeColumns="False" 
                                       CanUserResizeRows="False" CanUserSortColumns="True"
                                       IsReadOnly="True" SelectionMode="Extended"
-                                      RowStyle="{StaticResource DefaultDataGridRowStyle}"/>
+                                      RowStyle="{StaticResource DefaultDataGridRowStyle}"
+                                      FontSize="25"/>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="Добавить пользователя" Margin="5" Width="200" Click="User_Add" />
                                 <Button Content="Удалить пользователя" Margin="5" Width="200" Click="User_Remove" />
@@ -65,7 +66,8 @@
                                       CanUserDeleteRows="False" CanUserResizeColumns="False" 
                                       CanUserResizeRows="False" CanUserSortColumns="True"
                                       IsReadOnly="True" SelectionMode="Extended"
-                                      RowStyle="{StaticResource DefaultDataGridRowStyle}"/>
+                                      RowStyle="{StaticResource DefaultDataGridRowStyle}"
+                                      FontSize="25"/>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="Произвести транзакцию" Margin="5" Width="200" Click="Transaction_Add" />
                                 <Button Content="Удалить транзакцию" Margin="5" Width="200" Click="Transaction_Remove" />
@@ -82,7 +84,8 @@
                                       CanUserDeleteRows="False" CanUserResizeColumns="False" 
                                       CanUserResizeRows="False" CanUserSortColumns="True"
                                       IsReadOnly="True" SelectionMode="Extended"
-                                      RowStyle="{StaticResource DefaultDataGridRowStyle}"/>
+                                      RowStyle="{StaticResource DefaultDataGridRowStyle}"
+                                      FontSize="25"/>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <ComboBox Name="Report_ComboBox" Margin="5" Width="200">
                                     <ComboBoxItem Content="За период" />
