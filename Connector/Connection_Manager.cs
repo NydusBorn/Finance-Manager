@@ -30,6 +30,7 @@ public class Connector
             State = Database_State.Correct;
             return;
         }
+
         try
         {
             _connection = new SqliteConnection($"Data Source={_path}");
@@ -39,6 +40,7 @@ public class Connector
             {
                 return;
             }
+
             State = Database_State.Correct;
         }
         catch (Exception e)
@@ -65,13 +67,20 @@ public class Connector
                               "'User Name' varchar(255) not null" +
                               ");";
         creator.ExecuteNonQuery();
+        creator.CommandText = "Create table 'Categories'(" +
+                              "'Pk_Category' int not null primary key," +
+                              "'Category Name' varchar(255) not null" +
+                              ");";
+        creator.ExecuteNonQuery();
         creator.CommandText = "CREATE table 'Transactions'(" +
                               "'Pk_Transaction' int not null primary key," +
                               "'Fk_User' int not null," +
+                              "'Fk_Category' int not null," +
                               "'Transaction Description' varchar(255) not null," +
                               "'Transaction Change' int not null," +
                               "'Transaction Date' int not null," +
-                              "foreign key('Fk_User') references 'Users'('Pk_User')" +
+                              "foreign key('Fk_User') references 'Users'('Pk_User')," +
+                              "foreign key('Fk_Category') references 'Categories'('Pk_Category')" +
                               ");";
         creator.ExecuteNonQuery();
     }
@@ -86,7 +95,7 @@ public class Connector
         checker.Connection = _connection;
         checker.CommandText = "select * from sqlite_master where type is 'table';";
         var res = checker.ExecuteReader();
-        bool has_users = false, has_transactions = false;
+        bool has_users = false, has_transactions = false, has_category = false;
         if (!res.HasRows) return false;
         while (res.Read())
         {
@@ -95,9 +104,15 @@ public class Connector
             else if (has_users && resb == "Users") return false;
             else if (!has_transactions && resb == "Transactions") has_transactions = true;
             else if (has_transactions && resb == "Transactions") return false;
+            else if (!has_category && resb == "Categories") has_category = true;
+            else if (has_category && resb == "Categories") return false;
             else return false;
         }
 
+        if (!has_users || !has_transactions || !has_category)
+        {
+            return false;
+        }
         res.Close();
 
         checker.CommandText = "PRAGMA table_info ('Users');";
@@ -156,15 +171,41 @@ public class Connector
         }
 
         if (res.Read())
+        {
+            if ((string)res["name"] != "Fk_Category" || (string)res["type"] != "INT" || (long)res["notnull"] != 1 ||
+                (long)res["pk"] != 0 ||
+                res["dflt_value"].GetType().Name != "DBNull")
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+
+        if (res.Read())
+        {
             if ((string)res["name"] != "Transaction Description" || (string)res["type"] != "varchar(255)" ||
                 (long)res["notnull"] != 1 || (long)res["pk"] != 0 ||
                 res["dflt_value"].GetType().Name != "DBNull")
                 return false;
+        }
+        else
+        {
+            return false;
+        }
+
         if (res.Read())
+        {
             if ((string)res["name"] != "Transaction Change" || (string)res["type"] != "INT" ||
                 (long)res["notnull"] != 1 || (long)res["pk"] != 0 ||
                 res["dflt_value"].GetType().Name != "DBNull")
                 return false;
+        }
+        else
+        {
+            return false;
+        }
+
         if (res.Read())
         {
             if ((string)res["name"] != "Transaction Date" || (string)res["type"] != "INT" ||
@@ -176,8 +217,37 @@ public class Connector
         {
             return false;
         }
+        if (res.Read()) return false;
+        res.Close();
+        
+        checker.CommandText = "PRAGMA table_info ('Categories');";
+        res = checker.ExecuteReader();
+        if (res.Read())
+        {
+            if ((string)res["name"] != "Pk_Category" || (string)res["type"] != "INT" || (long)res["notnull"] != 1 ||
+                (long)res["pk"] != 1 ||
+                res["dflt_value"].GetType().Name != "DBNull")
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+
+        if (res.Read())
+        {
+            if ((string)res["name"] != "Category Name" || (string)res["type"] != "varchar(255)" ||
+                (long)res["notnull"] != 1 || (long)res["pk"] != 0 ||
+                res["dflt_value"].GetType().Name != "DBNull")
+                return false;
+        }
+        else
+        {
+            return false;
+        }
 
         if (res.Read()) return false;
+        res.Close();
 
         return true;
     }

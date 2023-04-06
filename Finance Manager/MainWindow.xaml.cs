@@ -52,9 +52,9 @@ public partial class MainWindow : UiWindow
                 ms.Close();
                 if (!result_ok) MainWindow_OnClosing(sender, new CancelEventArgs());
             };
-            if (_controller.State != Connector.Database_State.Incorrect)
+            if (_controller.State == Connector.Database_State.Incorrect)
                 ms.Title = "База данных некорректна.";
-            else if (_controller.State != Connector.Database_State.Missing) ms.Title = "База данных несуществует.";
+            else if (_controller.State == Connector.Database_State.Missing) ms.Title = "База данных несуществует.";
             ms.ShowDialog();
         }
         Refresh_Data();

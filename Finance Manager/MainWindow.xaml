@@ -69,6 +69,7 @@
                                       RowStyle="{StaticResource DefaultDataGridRowStyle}"
                                       FontSize="25"/>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="Категории транзакций" Margin="5" Width="200" Click="Transaction_Add" />
                                 <Button Content="Произвести транзакцию" Margin="5" Width="200" Click="Transaction_Add" />
                                 <Button Content="Удалить транзакцию" Margin="5" Width="200" Click="Transaction_Remove" />
                             </StackPanel>
@@ -89,8 +90,12 @@
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <ComboBox Name="Report_ComboBox" Margin="5" Width="200">
                                     <ComboBoxItem Content="За период" />
-                                    <ComboBoxItem Content="По Пользователям" />
+                                    <ComboBoxItem Content="По Пользователю" />
+                                    <ComboBoxItem Content="В категории" />
+                                    <ComboBoxItem Content="В категории по Пользователю" />
+                                    <ComboBoxItem Content="За период в категории" />
                                     <ComboBoxItem Content="За период по пользователю" />
+                                    <ComboBoxItem Content="За период в категории по пользователю" />
                                 </ComboBox>
                                 <Button Click="Show_Report_Click" Content="Вывести отчет" Margin="5"
                                         Width="200" />
