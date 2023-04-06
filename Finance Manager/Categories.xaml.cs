@@ -1,9 +1,15 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using System.Drawing;
+using System.IO.Packaging;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Wpf.Ui.Controls;
 using Button = Wpf.Ui.Controls.Button;
+using Image = System.Windows.Controls.Image;
 
 namespace Finance_Manager;
 
@@ -50,8 +56,11 @@ public partial class Categories : UiWindow
         tb.Text = categoryName;
         tb.Margin = new Thickness(5);
         Button btn = new Button();
-        btn.Content = "Remove";
-        btn.Margin = new Thickness(5);
+        Image img = new Image();
+        img.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Remove.png"));
+        btn.Content = img;
+        btn.HorizontalAlignment = HorizontalAlignment.Stretch;
+        btn.VerticalAlignment = VerticalAlignment.Stretch;
         btn.Click += new RoutedEventHandler(btn_Click);
         Grid.SetColumn(tb, 0);
         Grid.SetColumn(btn, 1);

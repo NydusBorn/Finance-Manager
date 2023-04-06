@@ -16,4 +16,14 @@
         <ProjectReference Include="..\Connector\Connector.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Assets\Add.png" />
+      <Resource Include="Assets\Add.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\Remove.png" />
+      <Resource Include="Assets\Remove.png" />
+    </ItemGroup>
+
 </Project>
