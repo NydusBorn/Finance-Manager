@@ -64,6 +64,7 @@ public partial class MainWindow : UiWindow
     {
         _controller.GetUsers();
         _controller.GetTransactions();
+        _controller.GetCategories();
         Data_Grid_Users.ItemsSource = _controller.Users.DefaultView;
         Data_Grid_Transactions.ItemsSource = _controller.Transactions.DefaultView;
     }
@@ -132,6 +133,12 @@ public partial class MainWindow : UiWindow
                 break;
             }
         }
+    }
+
+    private void Category_Show(object sender, RoutedEventArgs e)
+    {
+        var Cv = new Categories(this);
+        Cv.ShowDialog();
     }
 
     private void User_Add(object sender, RoutedEventArgs e)

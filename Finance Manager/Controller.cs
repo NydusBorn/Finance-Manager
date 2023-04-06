@@ -17,6 +17,7 @@ public class Controller
 
     public DataTable Users;
     public DataTable Transactions;
+    public DataTable Categories;
     
     
     public Controller(string path)
@@ -43,6 +44,11 @@ public class Controller
                                          "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
                                          "FROM Transactions " +
                                          "JOIN Users on Fk_User = Pk_User ");
+    }
+
+    public void GetCategories()
+    {
+        Categories = _connection.Execute_Query("SELECT * from 'Categories'");
     }
 
     public DataTable GetTransactionsPerPeriod(DateTime dt, DateTime dt2)
@@ -125,6 +131,21 @@ public class Controller
         _connection.Execute_Action($"Insert Into 'Transactions' Values ({id}, '{user}', '{description}', '{change}', '{date}')");
     }
 
+    public void Add_Category(string name)
+    {
+        int id;
+        if (Categories.Rows.Count != 0)
+        {
+            id = int.Parse((string)Categories.Rows[^1][0]) + 1;
+        }
+        else
+        {
+            id = 0;
+        }
+        
+        _connection.Execute_Action($"Insert Into 'Categories' Values ({id}, '{name}')");
+    }
+
     public void Remove_Users(List<int> users)
     {
         StringBuilder sb = new StringBuilder();
@@ -148,6 +169,12 @@ public class Controller
 
         sb.Remove(sb.Length - 2, 2);
         _connection.Execute_Action($"Delete From 'Transactions' Where Pk_Transaction In ({sb})");
+    }
+
+    public void Remove_Category(string category)
+    {
+        _connection.Execute_Action($"Delete From 'Transactions' Where Fk_Category In (Select 'Category Name' from 'Categories' where 'Category Name' = '{category}')");
+        _connection.Execute_Action($"Delete From 'Categories' Where \"Category Name\" = '{category}'");
     }
 
     /// <summary>
