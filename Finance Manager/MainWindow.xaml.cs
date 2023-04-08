@@ -195,4 +195,10 @@ public partial class MainWindow : UiWindow
             }
         }
     }
+
+    private void Transfer_Show(object sender, RoutedEventArgs e)
+    {
+        var Tf = new Transfer(this);
+        Tf.ShowDialog();
+    }
 }

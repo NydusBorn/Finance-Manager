@@ -9,21 +9,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="WPF-UI" Version="2.0.3"/>
+        <PackageReference Include="WPF-UI" Version="2.0.3" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Connector\Connector.csproj"/>
+        <ProjectReference Include="..\Connector\Connector.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Assets\Add.png"/>
-        <Resource Include="Assets\Add.png"/>
+        <None Remove="Assets\Add.png" />
+        <Resource Include="Assets\Add.png" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Assets\Remove.png"/>
-        <Resource Include="Assets\Remove.png"/>
+        <None Remove="Assets\Remove.png" />
+        <Resource Include="Assets\Remove.png" />
     </ItemGroup>
 
 </Project>
