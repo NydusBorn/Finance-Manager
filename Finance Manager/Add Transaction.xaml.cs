@@ -13,6 +13,7 @@ public partial class Add_Transaction : UiWindow
 {
     private MainWindow Parent;
     private Brush std;
+    private bool Categorised = false;
     public Add_Transaction(MainWindow parent)
     {
         InitializeComponent();
@@ -21,6 +22,11 @@ public partial class Add_Transaction : UiWindow
         {
             Cb_Transaction_User.Items.Add(row[1]);
         }
+        foreach (DataRow row in Parent._controller.Categories.Rows)
+        {
+            CB_Category.Items.Add(row[1]);
+        }
+        CB_Category.SelectedIndex = 0;
         std = Tx_Transaction_Description.Background;
     }
     
@@ -48,7 +54,9 @@ public partial class Add_Transaction : UiWindow
         }
 
         if (!success) return;
-        Parent._controller.Add_Transaction(int.Parse((string)Parent._controller.Users.Rows[Cb_Transaction_User.SelectedIndex][0]),Tx_Transaction_Description.Text,(int)double.Parse(Tx_Transaction_Price.Text), Parent._controller.Time(Dp_Transaction_Date.SelectedDate.Value));
+        string Tr_description;
+        Tr_description = Categorised ? CB_Category.SelectedItem.ToString() : Tx_Transaction_Description.Text;
+        Parent._controller.Add_Transaction(int.Parse((string)Parent._controller.Users.Rows[Cb_Transaction_User.SelectedIndex][0]),int.Parse((string)Parent._controller.Categories.Rows[CB_Category.SelectedIndex][0]),Tr_description,(int)double.Parse(Tx_Transaction_Price.Text), Parent._controller.Time(Dp_Transaction_Date.SelectedDate.Value));
         Parent.Refresh_Data();
         Signal_Update();
     }
@@ -104,6 +112,20 @@ public partial class Add_Transaction : UiWindow
             Tx_Transaction_Price.Background = std;
             Tx_Transaction_Price.ToolTip = null;
             return true;
+        }
+    }
+
+    private void CB_Category_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (CB_Category.SelectedIndex == 0)
+        {
+            ColDef_Description.Width = new(2, GridUnitType.Star);
+            Categorised = false;
+        }
+        else
+        {
+            ColDef_Description.Width = new(0);
+            Categorised = true;
         }
     }
 }

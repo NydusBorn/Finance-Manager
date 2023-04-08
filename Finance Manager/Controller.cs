@@ -116,7 +116,7 @@ public class Controller
         _connection.Execute_Action($"Insert Into 'Users' Values ({id}, '{UserName}')");
     }
 
-    public void Add_Transaction(int user, string description, int change, long date)
+    public void Add_Transaction(int user,int category, string description, int change, long date)
     {
         int id;
         if (Transactions.Rows.Count != 0)
@@ -128,7 +128,7 @@ public class Controller
             id = 0;
         }
         
-        _connection.Execute_Action($"Insert Into 'Transactions' Values ({id}, '{user}', '{description}', '{change}', '{date}')");
+        _connection.Execute_Action($"Insert Into 'Transactions' Values ({id}, {user}, {category}, '{description}', {change}, {date})");
     }
 
     public void Add_Category(string name)
