@@ -15,8 +15,9 @@ public class Connector
         Missing
     }
 
-    private SqliteConnection _connection;
     private readonly string _path;
+
+    private SqliteConnection _connection;
     public Database_State State;
 
     public Connector(string path)
@@ -36,10 +37,7 @@ public class Connector
             _connection = new SqliteConnection($"Data Source={_path}");
             _connection.Open();
             if (!Check_Conforming()) State = Database_State.Incorrect;
-            if (State == Database_State.Incorrect)
-            {
-                return;
-            }
+            if (State == Database_State.Incorrect) return;
 
             State = Database_State.Correct;
         }
@@ -64,7 +62,7 @@ public class Connector
         creator.Connection = _connection;
         creator.CommandText = "Create table 'Users'(" +
                               "'Pk_User' int not null primary key," +
-                              "'User Name' varchar(255) not null" +
+                              "'User Name' varchar(255) not null unique" +
                               ");";
         creator.ExecuteNonQuery();
         creator.CommandText = "Create table 'Categories'(" +
@@ -111,10 +109,7 @@ public class Connector
             else return false;
         }
 
-        if (!has_users || !has_transactions || !has_category)
-        {
-            return false;
-        }
+        if (!has_users || !has_transactions || !has_category) return false;
         res.Close();
 
         checker.CommandText = "PRAGMA table_info ('Users');";
@@ -219,9 +214,10 @@ public class Connector
         {
             return false;
         }
+
         if (res.Read()) return false;
         res.Close();
-        
+
         checker.CommandText = "PRAGMA table_info ('Categories');";
         res = checker.ExecuteReader();
         if (res.Read())

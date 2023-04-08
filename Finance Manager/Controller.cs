@@ -13,13 +13,13 @@ public class Controller
 {
     private readonly Connector _connection;
     private string _path;
+    public DataTable Categories;
     public Connector.Database_State State;
+    public DataTable Transactions;
 
     public DataTable Users;
-    public DataTable Transactions;
-    public DataTable Categories;
-    
-    
+
+
     public Controller(string path)
     {
         _connection = new Connector(path);
@@ -37,13 +37,13 @@ public class Controller
     public void GetTransactions()
     {
         Transactions = _connection.Execute_Query("SELECT " +
-                                         "\"Pk_Transaction\" AS \"ID транзакции\", " +
-                                         "\"User Name\" AS \"Имя пользователя\", " +
-                                         "\"Transaction Description\" AS \"Описание транзакции\", " +
-                                         "\"Transaction Change\" AS \"Изменение транзакции\", " +
-                                         "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
-                                         "FROM Transactions " +
-                                         "JOIN Users on Fk_User = Pk_User ");
+                                                 "\"Pk_Transaction\" AS \"ID транзакции\", " +
+                                                 "\"User Name\" AS \"Имя пользователя\", " +
+                                                 "\"Transaction Description\" AS \"Описание транзакции\", " +
+                                                 "\"Transaction Change\" AS \"Изменение транзакции\", " +
+                                                 "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
+                                                 "FROM Transactions " +
+                                                 "JOIN Users on Fk_User = Pk_User ");
     }
 
     public void GetCategories()
@@ -105,54 +105,40 @@ public class Controller
     {
         int id;
         if (Users.Rows.Count != 0)
-        {
             id = int.Parse((string)Users.Rows[^1][0]) + 1;
-        }
         else
-        {
             id = 0;
-        }
-        
+
         _connection.Execute_Action($"Insert Into 'Users' Values ({id}, '{UserName}')");
     }
 
-    public void Add_Transaction(int user,int category, string description, int change, long date)
+    public void Add_Transaction(int user, int category, string description, int change, long date)
     {
         int id;
         if (Transactions.Rows.Count != 0)
-        {
             id = int.Parse((string)Transactions.Rows[^1][0]) + 1;
-        }
         else
-        {
             id = 0;
-        }
-        
-        _connection.Execute_Action($"Insert Into 'Transactions' Values ({id}, {user}, {category}, '{description}', {change}, {date})");
+
+        _connection.Execute_Action(
+            $"Insert Into 'Transactions' Values ({id}, {user}, {category}, '{description}', {change}, {date})");
     }
 
     public void Add_Category(string name)
     {
         int id;
         if (Categories.Rows.Count != 0)
-        {
             id = int.Parse((string)Categories.Rows[^1][0]) + 1;
-        }
         else
-        {
             id = 0;
-        }
-        
+
         _connection.Execute_Action($"Insert Into 'Categories' Values ({id}, '{name}')");
     }
 
     public void Remove_Users(List<int> users)
     {
-        StringBuilder sb = new StringBuilder();
-        foreach (var id in users)
-        {
-            sb.Append($"{id}, ");
-        }
+        var sb = new StringBuilder();
+        foreach (var id in users) sb.Append($"{id}, ");
 
         sb.Remove(sb.Length - 2, 2);
         _connection.Execute_Action($"Delete From 'Transactions' Where Fk_User In ({sb})");
@@ -161,11 +147,8 @@ public class Controller
 
     public void Remove_Transactions(List<int> transactions)
     {
-        StringBuilder sb = new StringBuilder();
-        foreach (var id in transactions)
-        {
-            sb.Append($"{id}, ");
-        }
+        var sb = new StringBuilder();
+        foreach (var id in transactions) sb.Append($"{id}, ");
 
         sb.Remove(sb.Length - 2, 2);
         _connection.Execute_Action($"Delete From 'Transactions' Where Pk_Transaction In ({sb})");
@@ -173,7 +156,8 @@ public class Controller
 
     public void Remove_Category(string category)
     {
-        _connection.Execute_Action($"Delete From 'Transactions' Where Fk_Category In (Select 'Category Name' from 'Categories' where 'Category Name' = '{category}')");
+        _connection.Execute_Action(
+            $"Delete From 'Transactions' Where Fk_Category In (Select 'Category Name' from 'Categories' where 'Category Name' = '{category}')");
         _connection.Execute_Action($"Delete From 'Categories' Where \"Category Name\" = '{category}'");
     }
 
