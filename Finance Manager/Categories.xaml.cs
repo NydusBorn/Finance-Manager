@@ -43,8 +43,9 @@ public partial class Categories : UiWindow
     {
         StP_Categories.Children.Clear();
         var dt = Parent._controller.Categories;
-        foreach (DataRow row in dt.Rows)
+        for (var index = 2; index < dt.Rows.Count; index++)
         {
+            var row = dt.Rows[index];
             var categoryName = row["Category Name"].ToString();
             CreateCategoryControls(categoryName);
         }
@@ -82,7 +83,7 @@ public partial class Categories : UiWindow
     private void Btn_Remove_Category(object sender, RoutedEventArgs e)
     {
         var btn = sender as Button;
-        var sp = VisualTreeHelper.GetParent(btn) as StackPanel;
+        var sp = VisualTreeHelper.GetParent(btn) as Grid;
         var tb = sp.Children[0] as TextBlock;
         var categoryName = tb.Text;
         Parent._controller.Remove_Category(categoryName);

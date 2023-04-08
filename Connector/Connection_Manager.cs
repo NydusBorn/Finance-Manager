@@ -70,7 +70,9 @@ public class Connector
                               "'Category Name' varchar(255) not null unique" +
                               ");";
         creator.ExecuteNonQuery();
-        creator.CommandText = "INSERT INTO 'Categories' values(0, 'Единовременная транзакция')";
+        creator.CommandText = "INSERT INTO 'Categories' values(0, 'Перевод между пользователями')";
+        creator.ExecuteNonQuery();
+        creator.CommandText = "INSERT INTO 'Categories' values(1, 'Единовременная транзакция')";
         creator.ExecuteNonQuery();
         creator.CommandText = "CREATE table 'Transactions'(" +
                               "'Pk_Transaction' int not null primary key," +

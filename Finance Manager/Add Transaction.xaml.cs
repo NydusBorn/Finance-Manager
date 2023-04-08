@@ -20,7 +20,12 @@ public partial class Add_Transaction : UiWindow
         InitializeComponent();
         Parent = parent;
         foreach (DataRow row in Parent._controller.Users.Rows) Cb_Transaction_User.Items.Add(row[1]);
-        foreach (DataRow row in Parent._controller.Categories.Rows) CB_Category.Items.Add(row[1]);
+        for (var index = 1; index < Parent._controller.Categories.Rows.Count; index++)
+        {
+            var row = Parent._controller.Categories.Rows[index];
+            CB_Category.Items.Add(row[1]);
+        }
+
         CB_Category.SelectedIndex = 0;
         std = Tx_Transaction_Description.Background;
     }
