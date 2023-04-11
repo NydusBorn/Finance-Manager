@@ -55,7 +55,7 @@ public partial class Add_Transaction : UiWindow
         {
             Parent._controller.Add_Transaction(
             int.Parse((string)Parent._controller.Users.Rows[Cb_Transaction_User.SelectedIndex][0]),
-            int.Parse((string)Parent._controller.Categories.Rows[CB_Category.SelectedIndex][0]), Tr_description,
+            int.Parse((string)Parent._controller.Categories.Rows[CB_Category.SelectedIndex + 1][0]), Tr_description,
             (int)double.Parse(Tx_Transaction_Price.Text),
             Parent._controller.Time(Dp_Transaction_Date.SelectedDate.Value));
         }

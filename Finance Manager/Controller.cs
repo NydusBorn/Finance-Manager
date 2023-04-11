@@ -157,7 +157,7 @@ public class Controller
     public void Remove_Category(string category)
     {
         _connection.Execute_Action(
-            $"Delete From 'Transactions' Where Fk_Category In (Select 'Category Name' from 'Categories' where 'Category Name' = '{category}')");
+            $"Delete From 'Transactions' Where Fk_Category In (Select 'Pk_category' from 'Categories' where 'Category Name' = '{category}')");
         _connection.Execute_Action($"Delete From 'Categories' Where \"Category Name\" = '{category}'");
     }
 
