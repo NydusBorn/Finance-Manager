@@ -94,6 +94,75 @@ public class Controller
                                          $"WHERE \"Transaction Date\" > {time} AND \"Transaction Date\" < {time2} AND Users.Pk_User = {n}");
     }
 
+    public DataTable GetTransactionPerCategory(int categoryId) {
+        return _connection.Execute_Query("SELECT " +
+                                        "\"Pk_Transaction\" AS \"ID транзакции\", " +
+                                        "\"User Name\" AS \"Имя пользователя\", " +
+                                        "\"Category Name\" AS \"Категория транзакции\", " +
+                                        "\"Transaction Description\" AS \"Описание транзакции\", " +
+                                        "\"Transaction Change\" AS \"Изменение транзакции\", " +
+                                        "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
+                                        "FROM Transactions " +
+                                        "JOIN Users on Fk_User = Pk_User " +
+                                        "JOIN Categories on Fk_Category = Pk_Category " +
+                                         $"WHERE Categories.Pk_Category = {categoryId}");
+    }
+
+    public DataTable GetTransactionGroupByCategory() {
+        return _connection.Execute_Query("SELECT " +
+                                        "\"Category Name\" AS \"Категория транзакции\", " +
+                                        "SUM(\"Transaction Change\") AS \"Сумма всех транзакций по данной категории\" " +
+                                        "FROM Transactions " +
+                                        "JOIN Users on Fk_User = Pk_User " +
+                                        "JOIN Categories on Fk_Category = Pk_Category " +
+                                        "GROUP BY Categories.\"Category Name\"");
+    }
+
+    public DataTable GetTransactionPerCategoryAndDate(DateTime dt, DateTime dt2, int categoryId) {
+        var time = Time(dt);
+        var time2 = Time(dt2);
+        return _connection.Execute_Query("SELECT " +
+                                        "\"Pk_Transaction\" AS \"ID транзакции\", " +
+                                        "\"User Name\" AS \"Имя пользователя\", " +
+                                        "\"Category Name\" AS \"Категория транзакции\", " +
+                                        "\"Transaction Description\" AS \"Описание транзакции\", " +
+                                        "\"Transaction Change\" AS \"Изменение транзакции\", " +
+                                        "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
+                                        "FROM Transactions " +
+                                        "JOIN Users on Fk_User = Pk_User " +
+                                        "JOIN Categories on Fk_Category = Pk_Category " +
+                                         $"WHERE Categories.Pk_Category = {categoryId} AND \"Transaction Date\" > {time} AND \"Transaction Date\" < {time2}");
+    }
+
+    public DataTable GetTransactionPerCategoryAndUser(int userId, int categoryId) {
+        return _connection.Execute_Query("SELECT " +
+                                        "\"Pk_Transaction\" AS \"ID транзакции\", " +
+                                        "\"User Name\" AS \"Имя пользователя\", " +
+                                        "\"Category Name\" AS \"Категория транзакции\", " +
+                                        "\"Transaction Description\" AS \"Описание транзакции\", " +
+                                        "\"Transaction Change\" AS \"Изменение транзакции\", " +
+                                        "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
+                                        "FROM Transactions " +
+                                        "JOIN Users on Fk_User = Pk_User " +
+                                        "JOIN Categories on Fk_Category = Pk_Category " +
+                                         $"WHERE Categories.Pk_Category = {categoryId} AND Users.Pk_User = {userId}");
+    }
+
+    public DataTable GetTransactionPerCategoryAndDateAndUser(DateTime dt, DateTime dt2, int categoryId, int userId) {
+        var time = Time(dt);
+        var time2 = Time(dt2);
+        return _connection.Execute_Query("SELECT " +
+                                        "\"Pk_Transaction\" AS \"ID транзакции\", " +
+                                        "\"User Name\" AS \"Имя пользователя\", " +
+                                        "\"Category Name\" AS \"Категория транзакции\", " +
+                                        "\"Transaction Description\" AS \"Описание транзакции\", " +
+                                        "\"Transaction Change\" AS \"Изменение транзакции\", " +
+                                        "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
+                                        "FROM Transactions " +
+                                        "JOIN Users on Fk_User = Pk_User " +
+                                        "JOIN Categories on Fk_Category = Pk_Category " +
+                                         $"WHERE Categories.Pk_Category = {categoryId} AND \"Transaction Date\" > {time} AND \"Transaction Date\" < {time2} AND Users.Pk_User = {userId}");
+    }
     public long Time(DateTime dt)
     {
         var dt2 = new DateTime(1970, 1, 1, 0, 0, 0);
