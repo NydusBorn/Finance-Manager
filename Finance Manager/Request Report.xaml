@@ -8,7 +8,7 @@
              ExtendsContentIntoTitleBar="True"
              WindowStyle="None"
              WindowBackdropType="Mica"
-             MaxHeight="220" MinHeight="220"
+             MaxHeight="70" MinHeight="70"
              MaxWidth="400" MinWidth="400"
              FontSize="20"
              WindowStartupLocation="CenterScreen">
@@ -21,26 +21,30 @@
         <Grid Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" Name="RDef_Date" />
-                    <RowDefinition Height="1*" Name="RDef_User" />
+                    <RowDefinition Height="0" Name="RDef_Category" />
+                    <RowDefinition Height="0" Name="RDef_User" />
+                    <RowDefinition Height="0" Name="RDef_Date" />
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center"
+                           Text="Категория" />
+                <ComboBox Grid.Column="1" Grid.Row="0" Name="Cb_Category" />
                 <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Center" VerticalAlignment="Center"
                            Text="Пользователь" />
                 <ComboBox Grid.Column="1" Grid.Row="1" Name="Cb_User" />
-                <StackPanel Grid.Row="0" Grid.Column="0">
+                <StackPanel Grid.Row="2" Grid.Column="0">
                     <TextBlock TextAlignment="Center" Text="От" />
                     <DatePicker Name="DP_From" />
                 </StackPanel>
-                <StackPanel Grid.Row="0" Grid.Column="1">
+                <StackPanel Grid.Row="2" Grid.Column="1">
                     <TextBlock TextAlignment="Center" Text="До" />
                     <DatePicker Name="DP_To" />
                 </StackPanel>
-                <Button Grid.Row="2" Grid.ColumnSpan="2" Width="80" HorizontalAlignment="Center" Content="Создать"
+                <Button Grid.Row="3" Grid.ColumnSpan="2" Width="80" HorizontalAlignment="Center" Content="Создать"
                         Click="Create" />
             </Grid>
         </Grid>

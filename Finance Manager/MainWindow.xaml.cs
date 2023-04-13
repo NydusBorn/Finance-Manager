@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -105,32 +106,52 @@ public partial class MainWindow : UiWindow
         {
             case 0:
             {
-                var rp = new Request_Report(this, Request_Report.ReportType.Date);
-                rp.MinHeight = 170;
-                rp.MaxHeight = 170;
-                rp.RDef_User.Height = new GridLength(0);
-                rp.ShowDialog();
+                Data_Grid_Rep.ItemsSource = _controller.GetTransactionGroupByCategory().DefaultView;
                 break;
             }
             case 1:
             {
-                var rp = new Request_Report(this, Request_Report.ReportType.User);
-                rp.MinHeight = 170;
-                rp.MaxHeight = 170;
-                rp.RDef_Date.Height = new GridLength(0);
+                var rp = new Request_Report(this, Request_Report.ReportType.Date);
                 rp.ShowDialog();
-
                 break;
             }
             case 2:
             {
-                var rp = new Request_Report(this, Request_Report.ReportType.UserAndDate);
-                rp.MinHeight = 220;
-                rp.MaxHeight = 220;
+                var rp = new Request_Report(this, Request_Report.ReportType.User);
                 rp.ShowDialog();
-
                 break;
             }
+            case 3:
+            {
+                var rp = new Request_Report(this, Request_Report.ReportType.Category);
+                rp.ShowDialog();
+                break;
+            }
+            case 4:
+            {
+                var rp = new Request_Report(this, Request_Report.ReportType.User | Request_Report.ReportType.Category);
+                rp.ShowDialog();
+                break;
+            }
+            case 5:
+            {
+                var rp = new Request_Report(this, Request_Report.ReportType.Category | Request_Report.ReportType.Date);
+                rp.ShowDialog();
+                break;
+            }
+            case 6:
+            {
+                var rp = new Request_Report(this, Request_Report.ReportType.User | Request_Report.ReportType.Date);
+                rp.ShowDialog();
+                break;
+            }
+            case 7:
+            {
+                var rp = new Request_Report(this, Request_Report.ReportType.User | Request_Report.ReportType.Category | Request_Report.ReportType.Date);
+                rp.ShowDialog();
+                break;
+            }
+            default: throw new ArgumentOutOfRangeException();
         }
     }
 
