@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finance Manager", "Finance 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connector", "Connector\Connector.csproj", "{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Control", "Control\Control.csproj", "{87434DD2-E65A-4651-931D-4E950E8FDE83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97DB563A-A4D4-4FB7-9880-AF0B4E128A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87434DD2-E65A-4651-931D-4E950E8FDE83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87434DD2-E65A-4651-931D-4E950E8FDE83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87434DD2-E65A-4651-931D-4E950E8FDE83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87434DD2-E65A-4651-931D-4E950E8FDE83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
