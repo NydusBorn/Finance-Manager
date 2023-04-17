@@ -32,20 +32,14 @@ public class Controller {
     }
 
     public void GetTransactions() {
-        Transactions = _connection.Execute_Query(
-
-                                                "SELECT " +
+        Transactions = _connection.Execute_Query("SELECT " +
                                                 "\"Pk_Transaction\" AS \"ID транзакции\", " +
                                                 "\"User Name\" AS \"Имя пользователя\", " +
-                                                "\"Category Name\" AS \"Категория транзакции\", " +
                                                 "\"Transaction Description\" AS \"Описание транзакции\", " +
                                                 "\"Transaction Change\" AS \"Изменение транзакции\", " +
                                                 "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
                                                 "FROM Transactions " +
-                                                "JOIN Users on Fk_User = Pk_User " +
-                                                "JOIN Categories on Fk_Category = Pk_Category "
-
-                                                );
+                                                "JOIN Users on Fk_User = Pk_User");
     }
 
     public void GetCategories() {
@@ -55,35 +49,26 @@ public class Controller {
     public DataTable GetTransactionsPerPeriod(DateTime dt, DateTime dt2) {
         var time = Time(dt);
         var time2 = Time(dt2);
-        return _connection.Execute_Query(
-
-                                        "SELECT " +
+        return _connection.Execute_Query("SELECT " +
                                         "\"Pk_Transaction\" AS \"ID транзакции\", " +
                                         "\"User Name\" AS \"Имя пользователя\", " +
-                                        "\"Category Name\" AS \"Категория транзакции\", " +
                                         "\"Transaction Description\" AS \"Описание транзакции\", " +
                                         "\"Transaction Change\" AS \"Изменение транзакции\", " +
                                         "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
                                         "FROM Transactions " +
                                         "JOIN Users on Fk_User = Pk_User " +
-                                        "JOIN Categories on Fk_Category = Pk_Category " +
-                                         $"WHERE \"Transaction Date\" > {time} AND \"Transaction Date\" < {time2}"
-
-
-                                         );
+                                         $"WHERE \"Transaction Date\" > {time} AND \"Transaction Date\" < {time2}");
     }
 
     public DataTable GetUser(int n) {
         return _connection.Execute_Query("SELECT " +
                                         "\"Pk_Transaction\" AS \"ID транзакции\", " +
                                         "\"User Name\" AS \"Имя пользователя\", " +
-                                        "\"Category Name\" AS \"Категория транзакции\", " +
                                         "\"Transaction Description\" AS \"Описание транзакции\", " +
                                         "\"Transaction Change\" AS \"Изменение транзакции\", " +
                                         "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
                                         "FROM Transactions " +
                                         "JOIN Users on Fk_User = Pk_User " +
-                                        "JOIN Categories on Fk_Category = Pk_Category " +
                                          $"WHERE Users.Pk_User = {n}");
     }
 
@@ -93,13 +78,11 @@ public class Controller {
         return _connection.Execute_Query("SELECT " +
                                         "\"Pk_Transaction\" AS \"ID транзакции\", " +
                                         "\"User Name\" AS \"Имя пользователя\", " +
-                                        "\"Category Name\" AS \"Категория транзакции\", " +
                                         "\"Transaction Description\" AS \"Описание транзакции\", " +
                                         "\"Transaction Change\" AS \"Изменение транзакции\", " +
                                         "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
                                         "FROM Transactions " +
                                         "JOIN Users on Fk_User = Pk_User " +
-                                        "JOIN Categories on Fk_Category = Pk_Category " +
                                          $"WHERE \"Transaction Date\" > {time} AND \"Transaction Date\" < {time2} AND Users.Pk_User = {n}");
     }
 
@@ -107,7 +90,6 @@ public class Controller {
         return _connection.Execute_Query("SELECT " +
                                         "\"Pk_Transaction\" AS \"ID транзакции\", " +
                                         "\"User Name\" AS \"Имя пользователя\", " +
-                                        "\"Category Name\" AS \"Категория транзакции\", " +
                                         "\"Transaction Description\" AS \"Описание транзакции\", " +
                                         "\"Transaction Change\" AS \"Изменение транзакции\", " +
                                         "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
@@ -133,7 +115,6 @@ public class Controller {
         return _connection.Execute_Query("SELECT " +
                                         "\"Pk_Transaction\" AS \"ID транзакции\", " +
                                         "\"User Name\" AS \"Имя пользователя\", " +
-                                        "\"Category Name\" AS \"Категория транзакции\", " +
                                         "\"Transaction Description\" AS \"Описание транзакции\", " +
                                         "\"Transaction Change\" AS \"Изменение транзакции\", " +
                                         "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
@@ -147,7 +128,6 @@ public class Controller {
         return _connection.Execute_Query("SELECT " +
                                         "\"Pk_Transaction\" AS \"ID транзакции\", " +
                                         "\"User Name\" AS \"Имя пользователя\", " +
-                                        "\"Category Name\" AS \"Категория транзакции\", " +
                                         "\"Transaction Description\" AS \"Описание транзакции\", " +
                                         "\"Transaction Change\" AS \"Изменение транзакции\", " +
                                         "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
@@ -163,7 +143,6 @@ public class Controller {
         return _connection.Execute_Query("SELECT " +
                                         "\"Pk_Transaction\" AS \"ID транзакции\", " +
                                         "\"User Name\" AS \"Имя пользователя\", " +
-                                        "\"Category Name\" AS \"Категория транзакции\", " +
                                         "\"Transaction Description\" AS \"Описание транзакции\", " +
                                         "\"Transaction Change\" AS \"Изменение транзакции\", " +
                                         "strftime('%d-%m-%Y %H:%M', \"Transaction Date\", 'unixepoch') AS \"Дата транзакции\" " +
